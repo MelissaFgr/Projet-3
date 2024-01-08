@@ -246,6 +246,21 @@ ul li a:hover {
 	font-weight: bold;
 }
 
-.display-none{
+.display-none {
 	display: none;
+}
+
+#linkLogout:hover {
+	cursor: pointer;
+}
+
+hr{
+	border: none;
+	color: #B3B3B3;
+  	width: 420px;
+  	height: 0px;
+ 	border: 1px solid #B3B3B3;
+  	position: absolute;
+  	left: 510px;
+  	top: 1229px;
 }

@@ -9,7 +9,8 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
-	<script src="assets/js/function.js"></script>
+	<script src="assets/js/function.js" defer></script>
+	<script src="assets/js/main.js" defer></script>
 </head>
 <body>
 <header>
@@ -19,14 +20,21 @@
 			<li><a href="index.html">projets</a></li>
 			<li><a href="">contact</a></li>
 			<li>
-				<a class="linkLogin" href="login.html">login</a>
-				<a class="linkLogout display-none">logout</a>
+				<a id="linkLogin" href="login.html">login</a>
+				<a id="linkLogout" class="display-none">logout</a>
 			</li>	
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
 </header>
 <main>
+	<div id="modal-window" class="display-none">
+		<h3>Galerie photo</h3>
+		<!--liste projets-->
+		<div id="modal-gallery"></div>
+		<hr />
+		<button>Ajouter une photo</button>
+	</div>
 	<section id="introduction">
 		<figure>
 			<img src="./assets/images/sophie-bluel.png" alt="">
@@ -40,6 +48,12 @@
 	</section>
 	<section id="portfolio">
 		<h2>Mes Projets</h2>
+		<!--Lien ouverture modale-->
+		<a id="editButton" class="display-none">
+			<i class="fa-regular fa-pen-to-square"></i> <!--ne fonctionne pas-->
+			<p>modifier</p>
+		</a>
+		<!--***-->
 		<div class="filtered">
 			<button value="Tous">Tous</button>
 		</div>

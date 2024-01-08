@@ -55,6 +55,51 @@ async function displayCategories() {
     }
 }
 
-displayCategories()
-displayWorks()
+function hideLink(links) {
+    links.forEach(link => {
+        link.classList.add("display-none");
+    })
+}
+
+function showLink(links) {
+    links.forEach(link => {
+        link.classList.remove("display-none");
+    })
+}
+
+function logout() {
+    localStorage.removeItem("token");
+    window.location.href = "index.html";
+}
+
+async function displayModalGallery() {
+    let result = await fetch("http://localhost:5678/api/works"); 
+    let data = await result.json();
+    
+    for (let i = 0; i < data.length; i++) {
+        let figureworks = document.createElement("figure");
+        let image = document.createElement("img");
+        let title = document.createElement ("figcaption");
+
+        image.src = data[i].imageUrl;
+        title.textContent = data[i].title;
+        figureworks.setAttribute('id',data[i].categoryId);
+        
+        figureworks.appendChild(image);
+        figureworks.appendChild(title);
+
+        document.querySelector("#modal-gallery").appendChild(figureworks);
+    }
+}
+
+function openModal(){
+    const modalwindow = document.getElementsById("modal-window");
+
+    showLink(modalwindow);
+    displayModalGallery();
+
+
+}
+
+
 
