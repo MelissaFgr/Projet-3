@@ -55,16 +55,14 @@ async function displayCategories() {
     }
 }
 
-function hideLink(links) {
-    links.forEach(link => {
+function hideLink(link) {
         link.classList.add("display-none");
-    })
+ 
 }
 
-function showLink(links) {
-    links.forEach(link => {
+function showLink(link) {
         link.classList.remove("display-none");
-    })
+
 }
 
 function logout() {
@@ -79,26 +77,22 @@ async function displayModalGallery() {
     for (let i = 0; i < data.length; i++) {
         let figureworks = document.createElement("figure");
         let image = document.createElement("img");
-        let title = document.createElement ("figcaption");
+        
 
         image.src = data[i].imageUrl;
-        title.textContent = data[i].title;
         figureworks.setAttribute('id',data[i].categoryId);
         
         figureworks.appendChild(image);
-        figureworks.appendChild(title);
-
+        
         document.querySelector("#modal-gallery").appendChild(figureworks);
     }
 }
 
 function openModal(){
-    const modalwindow = document.getElementsById("modal-window");
+    const modalWindow = document.getElementById("modal-window");
 
-    showLink(modalwindow);
+    showLink(modalWindow);
     displayModalGallery();
-
-
 }
 
 

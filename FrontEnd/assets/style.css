@@ -247,7 +247,7 @@ ul li a:hover {
 }
 
 .display-none {
-	display: none;
+	display: none !important;
 }
 
 #linkLogout:hover {
@@ -264,3 +264,30 @@ hr{
   	left: 510px;
   	top: 1229px;
 }
+
+#modal-window {
+    display: flex;
+	position: absolute;
+	z-index: auto;
+    width: 630px;
+	height: 688px;
+    border: solid 1px black;
+    border-radius: 2em;
+	background: #FFFFFF;
+}
+
+#modal-window figure {
+	width: 20%;
+	height: auto;
+}
+
+#modal-window figure img {
+    width: 100%;
+}
+
+#modal-gallery {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+

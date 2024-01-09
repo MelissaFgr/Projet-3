@@ -1,8 +1,8 @@
-
 const logoutLink = document.getElementById("linkLogout");
 console.log(logoutLink);
 const loginLink = document.getElementById("linkLogin");
-const editButton = document.getElementsById("editButton");
+const editButton = document.getElementById("editButton");
+
 
 
 displayCategories()
@@ -10,7 +10,8 @@ displayWorks()
 
 if (localStorage.getItem("token")) {
     hideLink(loginLink);
-    showLink(logoutLink, editButton);
+    showLink(logoutLink);
+    showLink(editButton);
 
     logoutLink.addEventListener("click", function(){
         logout();
@@ -22,8 +23,11 @@ if (localStorage.getItem("token")) {
 
 } else {
     hideLink(logoutLink);
+    hideLink(editButton);
     showLink(loginLink);
 }
+
+
 
 
 
