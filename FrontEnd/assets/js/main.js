@@ -39,39 +39,21 @@ if (localStorage.getItem("token")) {
         closeModal();
     })
 
-    /* début fonction suppression, ne fonctionne pas / récupération des boutons impossible sauf si 1 par 1 /
-    si 1 par 1, addEventListenet ne fonctionne pas
-
-    var deleteButton = document.getElementsByClassName("deleteButton");
-    deleteButton.forEach(function(element) {
-        element.addEventListener("click", function(event){
-            var parentID = event.target.parentNode.id;
-            deleteProject(parentID, tokenUser);
-            console.log(deleteProject);
-        })
+    document.addEventListener("DOMContentLoaded", function(){
+        const delButtons = document.getElementsByClassName("deleteButton")
+        console.log(delButtons);
+        console.log(delButtons.length);
+    
+        for(var i=0;i<delButtons.length;i++){
+            console.log(delButtons[i]);
+            delButtons[i].addEventListener("click", function(){
+                console.log("Après le addeventlistener");
+               var parentID = this.parentNode.id;
+                deleteProject(parentID,tokenUser);
+            });
+        }
     });
-
-    --
-
-    async function recupbutton(){
-        console.log("Dans la fonction recup")
-        
-        return deleteButton
-    }
-       var delButton = recupbutton();
-        var arrayFromNodeList = Array.from(delButton);
-        console.log(arrayFromNodeList);
-
-    let deleteButton = document.getElementsByClassName("deleteButton0");
-    deleteButton.forEach(function(element){
-        console.log("Après le foreach");
-        console.log(deleteButton);
-        deleteButton.addEventListener("click", function(){
-            console.log("Après le addeventlistener");
-           var parentID = event.target.parentNode.id;
-            deleteProject(parentID,tokenUser);
-        })
-    });*/
+    
 
 } else {
     hideLink(logoutLink);

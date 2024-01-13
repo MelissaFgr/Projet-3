@@ -83,7 +83,7 @@ async function displayModalGallery() {
 
         image.src = data[i].imageUrl;
         delButton.classList.add("deleteButton");
-        delImage.classList.add("fa-solid", "fa-trash-can", "fa-xs");
+        delImage.classList.add("fa-solid", "fa-trash-can", "fa-2xs");
         figureworks.setAttribute('id',data[i].id);
         delButton.appendChild(delImage);
         figureworks.appendChild(image);
@@ -110,7 +110,7 @@ function closeModal(){
     hideLink(modalWindow);
 }
 
-/* impossible de tester sans addEventListener
+//impossible de tester sans addEventListener
 
 function deleteProject(parentID, tokenUser){
     fetch(`http://localhost:5678/api/works/${parentID}`, { 
@@ -130,4 +130,4 @@ function deleteProject(parentID, tokenUser){
         .catch(error => {
             console.error('There was an error!', error);
         });
-}*/
+}
