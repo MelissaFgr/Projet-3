@@ -21,10 +21,27 @@
 	<div id="modal-overlay" class="display-none"></div>
 	<div id="modal-window" role="dialog" class="display-none">
 		<i id="closeModalButton" class="fa-solid fa-xmark fa-lg" aria-hidden="true"></i>
-		<h3>Galerie photo</h3>
+		<i id="returnGalleryModal" class="fa-solid fa-arrow-left fa-lg display-none"></i>
+		<h3 id="titleGalleryModal">Galerie photo</h3><h3 id="titleAddProject" class="display-none">Ajout photo</h3>
 		<div id="modalGallery"></div>
+		<div id="containerAddProject" class="display-none">
+			<form id="formAddProject" methode="POST">
+				<div id="frameAddPhoo">
+					<i class="fa-regular fa-image fa-2xl"></i>
+					<label for="fileUpload">+Ajouter Photo</label>
+					<input type="file" id="fileUpload" name="inputfileUpload" style="visibility:hidden" required>
+					<p id="addImlageText">jpg, png : 4mo max</p>
+				</div>
+					<label for="inputTitle">Titre</label>
+					<input type="text" name="inputTitle" id="inputTitle" required>
+					<label for="menuCategory">Catégorie</label>
+					<select name="menuCategory" id="menuCategory">
+					</select>
+			</form>
+		</div>
 		<hr />
-		<input type="submit" value="Ajouter une photo">
+		<input id="nextInput" type="submit" value="Ajouter une photo">
+		<input id="submitProject" class="display-none" type="submit" value="Valider">
 	</div>
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
