@@ -52,12 +52,23 @@ if (localStorage.getItem("token")) {
     })
  
     closeModalButton.addEventListener("click", function(){
- 
         closeModal();
+        showLink(iconUpload); 
+        showLink(fileUpload);
+        showLink(addImageText);   
+        showLink(fileUploadLabel);  
+        hideLink(previewImage);
+        document.getElementById("formAddProject").reset();
     })
  
     modalOverlay.addEventListener("click", function(){
         closeModal();
+        showLink(iconUpload); 
+        showLink(fileUpload);
+        showLink(addImageText);   
+        showLink(fileUploadLabel);  
+        hideLink(previewImage);
+        document.getElementById("formAddProject").reset();
     })
  
     nextInput.addEventListener("click",function(){
