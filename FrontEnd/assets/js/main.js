@@ -5,7 +5,7 @@ const closeModalButton = document.getElementById("closeModalButton");
 const editModeLine = document.getElementById("editMode");
 const header = document.querySelector("header");
 const modalOverlay = document.getElementById("modal-overlay");
-const tokenUser = localStorage.getItem("token");
+const userToken = localStorage.getItem("token");
 const nextInput = document.getElementById("nextInput");
 const submitProject = document.getElementById("submitProject");
 const titleGalleryModal = document.getElementById("titleGalleryModal");
@@ -16,7 +16,14 @@ const modalGallery = document.getElementById("modalGallery");
 const fileUpload = document.getElementById("fileUpload");
 const inputTitle = document.getElementById("inputTitle");
 const menuCategory = document.getElementById("menuCategory");
-const formulaireData = new FormData();
+const formData = new FormData();
+const types = ["image/jpeg", "image/png"];
+const errorMessage = document.getElementById("errorMessage");
+const formAddProject = document.getElementById("formAddProject");
+const iconUpload = document.getElementById("iconUpload");
+const addImageText = document.getElementById("addImageText");
+const fileUploadLabel = document.getElementById("fileUploadLabel");
+const previewImage = document.getElementById("previewImage")
  
  
 displayCategories()
@@ -28,6 +35,8 @@ if (localStorage.getItem("token")) {
     showLink(logoutLink);
     showLink(editButton);
     showLink(editModeLine);
+    disabledSubmit(submitProject);
+    
  
     header.style.marginTop = '97px';
  
@@ -57,7 +66,7 @@ if (localStorage.getItem("token")) {
         hideLink(nextInput);
         showLink(titleAddProject);
         showLink(returnGalleryModal);
-        showLink(containerAddProject);
+        showLink(formAddProject);
         showLink(submitProject);
     })
  
@@ -67,17 +76,78 @@ if (localStorage.getItem("token")) {
         showLink(nextInput);
         hideLink(titleAddProject);
         hideLink(returnGalleryModal);
-        hideLink(containerAddProject);
+        hideLink(formAddProject);
         hideLink(submitProject); 
+        hideLink(errorMessage);
+        showLink(iconUpload); 
+        showLink(fileUpload);
+        showLink(addImageText);   
+        showLink(fileUploadLabel);  
+        hideLink(previewImage);  
+
+        document.getElementById("formAddProject").reset();
     })
- 
+     
+    fileUpload.addEventListener("change", function(event){
+        if(!types.includes(event.target.files[0].type)){
+            fileUpload.value="";
+            showLink(errorMessage);
+            disabledSubmit(submitProject);
+            
+        }else if(inputTitle.value != "" ){
+            const imageUP = event.target.files[0];
+            hideLink(errorMessage); 
+            enableSubmit(submitProject); 
+            hideLink(iconUpload); 
+            hideLink(fileUpload);
+            hideLink(addImageText);   
+            hideLink(fileUploadLabel);  
+            showLink(previewImage);  
+            previewImage.src = URL.createObjectURL(imageUP);  
+        }else {
+            const imageUP = event.target.files[0];
+            hideLink(errorMessage);
+            disabledSubmit(submitProject);
+            hideLink(iconUpload); 
+            hideLink(fileUpload);
+            hideLink(addImageText); 
+            hideLink(fileUploadLabel);
+            showLink(previewImage);
+            previewImage.src = URL.createObjectURL(imageUP);
+        }           
+    })
+
+    inputTitle.oninput=function(){
+        if(inputTitle.value != "" && fileUpload.value != ""){
+            console.log(fileUpload.value);
+            enableSubmit(submitProject);
+        }else {
+            console.log(fileUpload.value);
+            disabledSubmit(submitProject);
+        }
+    }
+
     submitProject.addEventListener("click",function(){
- 
-        formulaireData.append("image",fileUpload.files[0]);
-        formulaireData.append("title",inputTitle.textContent);
-        formulaireData.append("category",menuCategory.value);
- 
-        sendNewProject(formulaireData,tokenUser);
+
+        if(inputTitle.value != "" && fileUpload.value != ""){
+            formData.append("image",fileUpload.files[0]);
+            formData.append("title",inputTitle.value);
+            formData.append("category",menuCategory.value);
+            
+            sendNewProject(formData,userToken);
+            
+            showLink(titleGalleryModal);
+            showLink(modalGallery);
+            showLink(nextInput);
+            hideLink(titleAddProject);
+            hideLink(returnGalleryModal);
+            hideLink(formAddProject);
+            hideLink(submitProject);
+            hideLink(errorMessage);
+            
+            document.getElementById("formAddProject").reset();
+        }else {
+        }
     })
  
 } else {
@@ -86,4 +156,3 @@ if (localStorage.getItem("token")) {
     hideLink(editModeLine);
     showLink(loginLink);
 }
- 
