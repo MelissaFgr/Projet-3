@@ -16,30 +16,28 @@ const modalGallery = document.getElementById("modalGallery");
 const fileUpload = document.getElementById("fileUpload");
 const inputTitle = document.getElementById("inputTitle");
 const menuCategory = document.getElementById("menuCategory");
-const formData = new FormData();
-const types = ["image/jpeg", "image/png"];
 const errorMessage = document.getElementById("errorMessage");
 const formAddProject = document.getElementById("formAddProject");
 const iconUpload = document.getElementById("iconUpload");
 const addImageText = document.getElementById("addImageText");
 const fileUploadLabel = document.getElementById("fileUploadLabel");
 const previewImage = document.getElementById("previewImage")
- 
+
+const types = ["image/jpeg", "image/png"];
+const formData = new FormData();
  
 displayCategories()
 displayWorks()
 displayCategoriesAddProject()
  
 if (localStorage.getItem("token")) {
-    hideLink(loginLink);
-    showLink(logoutLink);
-    showLink(editButton);
-    showLink(editModeLine);
-    disabledSubmit(submitProject);
-    
- 
+    let arrayShow = [logoutLink,editButton,editModeLine];
+    let arrayHide = [loginLink];
     header.style.marginTop = '97px';
- 
+
+    hideLink(arrayHide);
+    showLink(arrayShow);
+    disabledSubmit(submitProject);
     displayModalGallery()
  
     logoutLink.addEventListener("click", function(){
@@ -48,113 +46,103 @@ if (localStorage.getItem("token")) {
  
     editButton.addEventListener("click", function(){
         openModal();
- 
     })
  
     closeModalButton.addEventListener("click", function(){
+        let arrayShow = [iconUpload,fileUpload,addImageText,fileUploadLabel];
+        let arrayHide = [previewImage];
+
         closeModal();
-        showLink(iconUpload); 
-        showLink(fileUpload);
-        showLink(addImageText);   
-        showLink(fileUploadLabel);  
-        hideLink(previewImage);
+        showLink(arrayShow);  
+        hideLink(arrayHide);
+
         document.getElementById("formAddProject").reset();
     })
  
     modalOverlay.addEventListener("click", function(){
+        let arrayShow = [iconUpload,fileUpload,addImageText,fileUploadLabel];
+        let arrayHide = [previewImage];
+
         closeModal();
-        showLink(iconUpload); 
-        showLink(fileUpload);
-        showLink(addImageText);   
-        showLink(fileUploadLabel);  
-        hideLink(previewImage);
+        showLink(arrayShow);  
+        hideLink(arrayHide);
+
         document.getElementById("formAddProject").reset();
     })
  
     nextInput.addEventListener("click",function(){
-        hideLink(titleGalleryModal);
-        hideLink(modalGallery);
-        hideLink(nextInput);
-        showLink(titleAddProject);
-        showLink(returnGalleryModal);
-        showLink(formAddProject);
-        showLink(submitProject);
+        let arrayShow = [titleAddProject,returnGalleryModal,formAddProject,submitProject];
+        let arrayHide = [titleGalleryModal,modalGallery,nextInput];
+
+        hideLink(arrayHide);
+        showLink(arrayShow);
     })
  
     returnGalleryModal.addEventListener("click", function(){
-        showLink(titleGalleryModal);
-        showLink(modalGallery);
-        showLink(nextInput);
-        hideLink(titleAddProject);
-        hideLink(returnGalleryModal);
-        hideLink(formAddProject);
-        hideLink(submitProject); 
-        hideLink(errorMessage);
-        showLink(iconUpload); 
-        showLink(fileUpload);
-        showLink(addImageText);   
-        showLink(fileUploadLabel);  
-        hideLink(previewImage);  
+        let arrayShow = [titleGalleryModal,modalGallery,nextInput,iconUpload,fileUpload,addImageText];
+        let arrayHide = [titleAddProject,returnGalleryModal,formAddProject,submitProject,errorMessage,previewImage];
+        
+        showLink(arrayShow);
+        hideLink(arrayHide); 
 
         document.getElementById("formAddProject").reset();
     })
      
     fileUpload.addEventListener("change", function(event){
-        if(!types.includes(event.target.files[0].type)){
+        //Vérifie le type et la taille du fichier upload
+        if(!types.includes(event.target.files[0].type)||event.target.files[0].size > 4*1024*1024){
+            let arrayShow = [errorMessage];
             fileUpload.value="";
-            showLink(errorMessage);
+
+            showLink(arrayShow);
             disabledSubmit(submitProject);
             
         }else if(inputTitle.value != "" ){
             const imageUP = event.target.files[0];
-            hideLink(errorMessage); 
-            enableSubmit(submitProject); 
-            hideLink(iconUpload); 
-            hideLink(fileUpload);
-            hideLink(addImageText);   
-            hideLink(fileUploadLabel);  
-            showLink(previewImage);  
+            let arrayHide = [errorMessage,iconUpload,fileUpload,addImageText,fileUploadLabel];
+            let arrayShow = [previewImage];
+
+            hideLink(arrayHide); 
+            showLink(arrayShow); 
+            enableSubmit(submitProject);  
+             
             previewImage.src = URL.createObjectURL(imageUP);  
         }else {
             const imageUP = event.target.files[0];
-            hideLink(errorMessage);
-            disabledSubmit(submitProject);
-            hideLink(iconUpload); 
-            hideLink(fileUpload);
-            hideLink(addImageText); 
-            hideLink(fileUploadLabel);
-            showLink(previewImage);
-            previewImage.src = URL.createObjectURL(imageUP);
+            let arrayHide = [errorMessage,iconUpload,fileUpload,addImageText,fileUploadLabel]
+            let arrayShow = [previewImage];
+
+            hideLink(arrayHide); 
+            showLink(arrayShow); 
+            disabledSubmit(submitProject);  
+             
+            previewImage.src = URL.createObjectURL(imageUP);           
         }           
     })
 
     inputTitle.oninput=function(){
         if(inputTitle.value != "" && fileUpload.value != ""){
-            console.log(fileUpload.value);
             enableSubmit(submitProject);
         }else {
-            console.log(fileUpload.value);
             disabledSubmit(submitProject);
         }
     }
 
     submitProject.addEventListener("click",function(){
-
+        //Vérifie que le champs titre et upload de l'image ne sont pas vides avant de soumettre un projet
         if(inputTitle.value != "" && fileUpload.value != ""){
+            let arrayHide = [titleAddProject,returnGalleryModal,formAddProject,submitProject,errorMessage];
+            let arrayShow = [titleGalleryModal,modalGallery,];
+
             formData.append("image",fileUpload.files[0]);
             formData.append("title",inputTitle.value);
             formData.append("category",menuCategory.value);
             
             sendNewProject(formData,userToken);
             
-            showLink(titleGalleryModal);
-            showLink(modalGallery);
-            showLink(nextInput);
-            hideLink(titleAddProject);
-            hideLink(returnGalleryModal);
-            hideLink(formAddProject);
-            hideLink(submitProject);
-            hideLink(errorMessage);
+            
+            showLink(arrayShow);
+            hideLink(arrayHide);
             
             document.getElementById("formAddProject").reset();
         }else {
@@ -162,8 +150,9 @@ if (localStorage.getItem("token")) {
     })
  
 } else {
-    hideLink(logoutLink);
-    hideLink(editButton);
-    hideLink(editModeLine);
-    showLink(loginLink);
+    let arrayHide = [logoutLink,editButton,editModeLine];
+    let arrayShow = [loginLink]
+
+    hideLink(arrayHide);
+    showLink(arrayShow);
 }
