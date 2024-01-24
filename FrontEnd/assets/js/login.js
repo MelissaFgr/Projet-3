@@ -1,7 +1,3 @@
-function emailCheck(email) {
-    let emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-    return emailRegex.test(email);
-}
 //Envoie les données à l'API
 document.addEventListener('DOMContentLoaded', () => {
     let mailLogin = document.querySelector("#mailLogin");

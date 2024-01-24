@@ -4,7 +4,7 @@ async function displayWorks() {
     .then(response => response.json())
     .then(data => {
         console.log(data)
-        // Action pour chacun des projets remonté par l'API : Création d'un container, d'une image et d'un titre
+        //Action pour chacun des projets remonté par l'API : Création d'un container, d'une image et d'un titre
         data.forEach(project =>{
             let figureworks = document.createElement("figure");
             let image = document.createElement("img");
@@ -12,7 +12,7 @@ async function displayWorks() {
      
             image.src = project.imageUrl;
             title.textContent = project.title;
-            // Ajout de l'ID de la catégorie, ainsi que l'ID du projet
+            //Ajout de l'ID de la catégorie, ainsi que l'ID du projet
             figureworks.setAttribute('id',project.categoryId);
             figureworks.classList.add("figureImage", project.id);
      
@@ -241,4 +241,9 @@ async function displayWorks() {
     
     function enableSubmit(inputSubmit) {
         inputSubmit.classList.remove("disabled");
+    }
+
+    function emailCheck(email) {
+        let emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+        return emailRegex.test(email);
     }
