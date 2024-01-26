@@ -30,7 +30,7 @@ async function displayWorks() {
     buttonfilter.addEventListener("click", function (event) {
         let valeurButton = event.target.value;
         console.log(valeurButton);
-     
+        //Parcour la galerie et la compare avec l'ID des images
         for (let j = 0; j < figuresFilter.length; j++) {
             let figures = figuresFilter[j];
      

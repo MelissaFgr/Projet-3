@@ -29,7 +29,8 @@ const formData = new FormData();
 displayCategories()
 displayWorks()
 displayCategoriesAddProject()
- 
+
+//Vérification de la présence du token
 if (localStorage.getItem("token")) {
     let arrayShow = [logoutLink,editButton,editModeLine];
     let arrayHide = [loginLink];
@@ -47,7 +48,8 @@ if (localStorage.getItem("token")) {
     editButton.addEventListener("click", function(){
         openModal();
     })
- 
+    
+    //Réinitialise le formulaire de la modale
     closeModalButton.addEventListener("click", function(){
         let arrayShow = [iconUpload,fileUpload,addImageText,fileUploadLabel];
         let arrayHide = [previewImage];
@@ -58,7 +60,8 @@ if (localStorage.getItem("token")) {
 
         document.getElementById("formAddProject").reset();
     })
- 
+    
+    //Ferme la modale quand on clique en dehors du cadre de la modale
     modalOverlay.addEventListener("click", function(){
         let arrayShow = [iconUpload,fileUpload,addImageText,fileUploadLabel];
         let arrayHide = [previewImage];
@@ -70,6 +73,7 @@ if (localStorage.getItem("token")) {
         document.getElementById("formAddProject").reset();
     })
  
+    //Donne accès à l'ajout de projet
     nextInput.addEventListener("click",function(){
         let arrayShow = [titleAddProject,returnGalleryModal,formAddProject,submitProject];
         let arrayHide = [titleGalleryModal,modalGallery,nextInput];
@@ -77,7 +81,8 @@ if (localStorage.getItem("token")) {
         hideLink(arrayHide);
         showLink(arrayShow);
     })
- 
+    
+    //Quitte l'ajout de projet et retourne dans la modale galerie 
     returnGalleryModal.addEventListener("click", function(){
         let arrayShow = [titleGalleryModal,modalGallery,nextInput,iconUpload,fileUpload,addImageText];
         let arrayHide = [titleAddProject,returnGalleryModal,formAddProject,submitProject,errorMessage,previewImage];
@@ -89,7 +94,7 @@ if (localStorage.getItem("token")) {
     })
      
     fileUpload.addEventListener("change", function(event){
-        //Vérifie le type et la taille du fichier upload
+        //Vérifie si le type et la taille du fichier upload est incorrect
         if(!types.includes(event.target.files[0].type)||event.target.files[0].size > 4*1024*1024){
             let arrayShow = [errorMessage];
             fileUpload.value="";
@@ -120,6 +125,7 @@ if (localStorage.getItem("token")) {
         }           
     })
 
+    //Déclenche la fonction à chaque nouvel input dans le champs de texte, vérifie en temps réel le champs texte
     inputTitle.oninput=function(){
         if(inputTitle.value != "" && fileUpload.value != ""){
             enableSubmit(submitProject);
@@ -130,6 +136,7 @@ if (localStorage.getItem("token")) {
 
     submitProject.addEventListener("click",function(){
         //Vérifie que le champs titre et upload de l'image ne sont pas vides avant de soumettre un projet
+        //Le menuCategory est un select et ne peut jamais être vide, aucune vérification à faire
         if(inputTitle.value != "" && fileUpload.value != ""){
             let arrayHide = [titleAddProject,returnGalleryModal,formAddProject,submitProject,errorMessage];
             let arrayShow = [titleGalleryModal,modalGallery,];
@@ -139,8 +146,7 @@ if (localStorage.getItem("token")) {
             formData.append("category",menuCategory.value);
             
             sendNewProject(formData,userToken);
-            
-            
+                
             showLink(arrayShow);
             hideLink(arrayHide);
             
