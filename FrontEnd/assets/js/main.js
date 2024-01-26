@@ -76,8 +76,8 @@ if (localStorage.getItem("token")) {
  
     //Donne accès à l'ajout de projet
     nextInput.addEventListener("click",function(){
-        let arrayShow = [titleAddProject,returnGalleryModal,formAddProject,submitProject];
-        let arrayHide = [titleGalleryModal,modalGallery,nextInput];
+        let arrayShow = [titleAddProject,returnGalleryModal,formAddProject,submitProject,fileUpload,addImageText,iconUpload,fileUploadLabel];
+        let arrayHide = [titleGalleryModal,modalGallery,nextInput,previewImage];
 
         hideLink(arrayHide);
         showLink(arrayShow);
@@ -147,6 +147,11 @@ if (localStorage.getItem("token")) {
             formData.append("category",menuCategory.value);
             
             sendNewProject(formData,userToken);
+            formData.delete("image");
+            formData.delete("title");
+            formData.delete("category");
+
+            fileUpload.value="";
                 
             showLink(arrayShow);
             hideLink(arrayHide);
