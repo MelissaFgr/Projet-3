@@ -21,7 +21,8 @@ const formAddProject = document.getElementById("formAddProject");
 const iconUpload = document.getElementById("iconUpload");
 const addImageText = document.getElementById("addImageText");
 const fileUploadLabel = document.getElementById("fileUploadLabel");
-const previewImage = document.getElementById("previewImage")
+const previewImage = document.getElementById("previewImage");
+const filtered = document.getElementById("filtered");
 
 const types = ["image/jpeg", "image/png"];
 const formData = new FormData();
@@ -33,7 +34,7 @@ displayCategoriesAddProject()
 //Vérification de la présence du token
 if (localStorage.getItem("token")) {
     let arrayShow = [logoutLink,editButton,editModeLine];
-    let arrayHide = [loginLink];
+    let arrayHide = [loginLink, filtered];
     header.style.marginTop = '97px';
 
     hideLink(arrayHide);
@@ -139,7 +140,7 @@ if (localStorage.getItem("token")) {
         //Le menuCategory est un select et ne peut jamais être vide, aucune vérification à faire
         if(inputTitle.value != "" && fileUpload.value != ""){
             let arrayHide = [titleAddProject,returnGalleryModal,formAddProject,submitProject,errorMessage];
-            let arrayShow = [titleGalleryModal,modalGallery,];
+            let arrayShow = [titleGalleryModal,modalGallery,nextInput];
 
             formData.append("image",fileUpload.files[0]);
             formData.append("title",inputTitle.value);
